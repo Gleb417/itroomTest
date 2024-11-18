@@ -1,0 +1,57 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+} /*обнуление стилей*/
+
+.navbar {
+	background-color: #000; /* Цвет фона навбара */
+	display: flex; /* Используем flexbox */
+	justify-content: space-between; /* Пространство между логотипом и меню */
+	padding: 0.5rem; /* Добавляем общий отступ */
+}
+
+.navbar ul {
+	display: flex;
+	justify-content: space-between;
+}
+
+.navbar li {
+	margin-right: 1.25rem; /* Отступы между пунктами меню (20px) */
+}
+
+.navbar li a {
+	color: white; /* Цвет текста пунктов меню */
+	text-decoration: none; /* Убираем подчеркивание у ссылок */
+	font-size: 1rem; /* Размер шрифта пунктов меню (16px) */
+}
+
+/* Стили для состояния наведения на ссылки */
+.navbar li a:hover {
+	color: #ffa500; /* Цвет текста при наведении */
+}
+
+button {
+	padding: 2px;
+	padding-left: 4px;
+	padding-right: 4px;
+	text-decoration: none;
+	color: black;
+	border-radius: 25px;
+	background-color: #fff;
+}
+
+li {
+	margin-right: 1.25rem; /* Отступы между пунктами меню (20px) */
+}
+
+li a {
+	color: black; /* Цвет текста пунктов меню */
+	text-decoration: none; /* Убираем подчеркивание у ссылок */
+	font-size: 1rem; /* Размер шрифта пунктов меню (16px) */
+}
+
+/* Стили для состояния наведения на ссылки */
+li a:hover {
+	color: #ffa500; /* Цвет текста при наведении */
+}
