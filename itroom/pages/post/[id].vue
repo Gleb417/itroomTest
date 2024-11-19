@@ -2,6 +2,7 @@
 	<div>
 		<Navbar />
 		<h1>{{ post.label }}</h1>
+		<p>Никнейм создателя поста: {{ post.user.username }}</p>
 		<p>{{ post.text }}</p>
 		<div v-if="post.filePath">
 			<img

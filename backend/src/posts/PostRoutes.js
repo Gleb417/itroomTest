@@ -4,6 +4,7 @@ import { createPost } from './PostController.js';
 import Post from './PostModel.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 import User from '../users/UserModel.js';
+import { updatePost } from './PostController.js';
 
 const router = express.Router();
 
@@ -15,10 +16,61 @@ const storage = multer.diskStorage({
     cb(null, `${uniqueSuffix}-${file.originalname}`); // Сохраняем файлы с уникальными именами
   },
 });
-const upload = multer({ storage });
+
+// Функция для фильтрации файлов
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true); // Файл допустим
+  } else {
+    cb(
+      new Error('Неверный формат файла. Допустимы только .jpg, .png, .jpeg'),
+      false
+    );
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter, // Добавили фильтр файлов
+});
 
 // Маршрут для создания поста
-router.post('/', authMiddleware, upload.single('filePath'), createPost);
+router.post(
+  '/',
+  authMiddleware,
+  upload.single('filePath'),
+  (req, res, next) => {
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({
+          message: 'Файл обязателен и должен быть формата .jpg, .png или .jpeg',
+        });
+    }
+    next();
+  },
+  createPost
+);
+
+// Маршрут для обновления поста
+router.put(
+  '/:id',
+  authMiddleware,
+  upload.single('filePath'),
+  (req, res, next) => {
+    if (
+      req.file &&
+      !['image/jpeg', 'image/png', 'image/jpg'].includes(req.file.mimetype)
+    ) {
+      return res
+        .status(400)
+        .json({ message: 'Файл должен быть формата .jpg, .png или .jpeg' });
+    }
+    next();
+  },
+  updatePost
+);
 
 // Маршрут для получения всех постов
 router.get('/', async (req, res) => {

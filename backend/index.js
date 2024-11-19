@@ -6,6 +6,7 @@ import userRoutes from './src/users/UserRoutes.js';
 import postRoutes from './src/posts/PostRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 dotenv.config();
 const app = express();
@@ -27,3 +28,14 @@ dbPosts.sync({ alter: true }).then(() => {
   // Используем `alter` для обновления схемы
   app.listen(PORT, () => console.log(`Сервер запущен на порту ${PORT}`));
 });
+
+// Путь к папке uploads
+const uploadsPath = path.join(__dirname, 'uploads');
+
+// Проверка существования папки и её создание
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true }); // Создаёт папку, включая родительские, если их нет
+  console.log('Папка "uploads" создана.');
+} else {
+  console.log('Папка "uploads" уже существует.');
+}
