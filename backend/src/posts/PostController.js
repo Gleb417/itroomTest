@@ -1,5 +1,4 @@
 import Post from './PostModel.js';
-import User from '../users/UserModel.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -91,6 +90,45 @@ export const updatePost = async (req, res) => {
       );
     }
     console.error('Ошибка при обновлении поста:', error);
+    res.status(500).json({ message: 'Ошибка сервера' });
+  }
+};
+// Функция удаления поста
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.userId;
+
+  try {
+    const post = await Post.findByPk(id);
+    if (!post) {
+      return res.status(404).json({ message: 'Пост не найден' });
+    }
+
+    if (post.userId !== userId) {
+      return res
+        .status(403)
+        .json({ message: 'Вы не можете удалить этот пост' });
+    }
+
+    // Удаляем файл, если он существует
+    if (post.filePath) {
+      const filePath = path.join(
+        __dirname,
+        '..',
+        '..',
+        'uploads',
+        path.basename(post.filePath)
+      );
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    // Удаляем пост из базы данных
+    await post.destroy();
+    res.json({ message: 'Пост успешно удален' });
+  } catch (error) {
+    console.error('Ошибка при удалении поста:', error);
     res.status(500).json({ message: 'Ошибка сервера' });
   }
 };

@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<Navbar />
+	<div class="navbar_div"><Navbar /></div>
+	<div class="contentMain">
 		<h1>Регистрация</h1>
 		<form @submit.prevent="register">
 			<label>

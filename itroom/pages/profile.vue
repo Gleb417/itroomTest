@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<Navbar />
+	<div class="navbar_div"><Navbar /></div>
+	<div class="contentMain">
 		<h1>Профиль пользователя</h1>
 
 		<div v-if="loading">Загрузка данных...</div>
@@ -12,14 +12,20 @@
 
 			<h2>Ваши посты</h2>
 			<div v-if="postsLoading">Загрузка постов...</div>
-			<div v-else-if="postsError">{{ postsError }}</div>
+			<!-- <div v-else-if="postsError">{{ postsError }}</div> -->
 			<div v-else>
-				<ul>
-					<li v-for="post in posts" :key="post.id">
-						{{ post.label }}
-						<button @click="selectPost(post)">Редактировать</button>
-					</li>
-				</ul>
+				<div v-if="posts.length === 0">
+					<p>Вы ещё не создали свой пост!</p>
+				</div>
+				<div v-else>
+					<ul>
+						<li v-for="post in posts" :key="post.id">
+							{{ post.label }}
+							<button @click="selectPost(post)">Редактировать</button>
+							<button @click="deletePost(post.id)">Удалить</button>
+						</li>
+					</ul>
+				</div>
 			</div>
 
 			<!-- Форма редактирования поста -->
@@ -100,11 +106,14 @@ const fetchUserData = async () => {
 // Получение постов текущего пользователя
 const fetchUserPosts = async () => {
 	try {
-		const response = await fetch('http://localhost:3001/api/posts', {
-			headers: {
-				Authorization: `Bearer ${accessToken.value}`,
-			},
-		})
+		const response = await fetch(
+			'http://localhost:3001/api/posts/user/{userId}',
+			{
+				headers: {
+					Authorization: `Bearer ${accessToken.value}`,
+				},
+			}
+		)
 
 		if (!response.ok) {
 			throw new Error('Ошибка при загрузке постов: ' + (await response.text()))
@@ -159,33 +168,27 @@ const updatePost = async () => {
 	}
 }
 
+// Удаление поста
+const deletePost = async postId => {
+	if (confirm('Вы уверены, что хотите удалить этот пост?')) {
+		try {
+			await $fetch(`http://localhost:3001/api/posts/${postId}`, {
+				method: 'DELETE',
+				headers: {
+					Authorization: `Bearer ${accessToken.value}`,
+				},
+			})
+			alert('Пост успешно удален!')
+			await fetchUserPosts()
+		} catch (err) {
+			console.error('Ошибка при удалении поста:', err)
+		}
+	}
+}
+
 // Инициализация данных
 onMounted(() => {
 	fetchUserData()
 	fetchUserPosts()
 })
 </script>
-
-<style scoped>
-h1 {
-	margin-bottom: 20px;
-}
-
-p {
-	font-size: 18px;
-	margin: 10px 0;
-}
-
-ul {
-	list-style: none;
-	padding: 0;
-}
-
-li {
-	margin-bottom: 10px;
-}
-
-button {
-	margin-left: 10px;
-}
-</style>

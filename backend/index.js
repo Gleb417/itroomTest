@@ -7,6 +7,7 @@ import postRoutes from './src/posts/PostRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import activityRoutes from './src/activity/activityRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ const __dirname = path.dirname(__filename);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/activities', activityRoutes);
 
 // Синхронизация базы данных и запуск сервера
 const PORT = process.env.PORT || 3001;

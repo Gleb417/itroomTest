@@ -4,26 +4,37 @@
 	box-sizing: border-box;
 } /*обнуление стилей*/
 
+.navbar_div {
+	width: 100%;
+}
+
 .navbar {
 	background-color: #000; /* Цвет фона навбара */
 	display: flex; /* Используем flexbox */
-	justify-content: space-between; /* Пространство между логотипом и меню */
-	padding: 0.5rem; /* Добавляем общий отступ */
+	justify-content: center; /* Центрируем по горизонтали */
+	align-items: center; /* Центрируем по вертикали */
+	padding: 0.5rem; /* Отступы */
+	width: 100%;
 }
 
 .navbar ul {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center; /* Центрирование элементов внутри списка */
+	align-items: center; /* Центрируем текст по вертикали */
+	margin: 0; /* Убираем отступы */
+	padding: 0;
+	list-style: none; /* Убираем маркеры списка */
 }
 
 .navbar li {
-	margin-right: 1.25rem; /* Отступы между пунктами меню (20px) */
+	margin: 0 1rem; /* Отступы между пунктами */
+	list-style-type: none;
 }
 
 .navbar li a {
 	color: white; /* Цвет текста пунктов меню */
-	text-decoration: none; /* Убираем подчеркивание у ссылок */
-	font-size: 1rem; /* Размер шрифта пунктов меню (16px) */
+	text-decoration: none; /* Убираем подчеркивание */
+	font-size: 1rem; /* Размер шрифта */
 }
 
 /* Стили для состояния наведения на ссылки */
@@ -31,18 +42,9 @@
 	color: #ffa500; /* Цвет текста при наведении */
 }
 
-button {
-	padding: 2px;
-	padding-left: 4px;
-	padding-right: 4px;
-	text-decoration: none;
-	color: black;
-	border-radius: 25px;
-	background-color: #fff;
-}
-
 li {
 	margin-right: 1.25rem; /* Отступы между пунктами меню (20px) */
+	list-style-type: none;
 }
 
 li a {
@@ -54,4 +56,157 @@ li a {
 /* Стили для состояния наведения на ссылки */
 li a:hover {
 	color: #ffa500; /* Цвет текста при наведении */
+	text-decoration: none;
+}
+.contentMain {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: auto;
+}
+div {
+	font-family: 'Arial', sans-serif;
+}
+
+/* Стили для заголовка поста */
+h1 {
+	font-size: 2.5rem;
+	margin-bottom: 15px;
+	color: #333;
+}
+
+/* Стили для текста поста */
+p {
+	font-size: 1.1rem;
+	line-height: 1.6;
+	margin-bottom: 15px;
+	word-wrap: break-word; /* Перенос длинных слов */
+	overflow-wrap: break-word; /* Для современных браузеров */
+}
+
+/* Стили для блока с изображением */
+.activities img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+	margin-top: 20px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для блока активности */
+.activities {
+	margin-top: 40px;
+	border-top: 2px solid #eee;
+	padding-top: 20px;
+}
+
+.activities h2 {
+	font-size: 1.8rem;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+/* Стили для кнопок лайков */
+button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	font-size: 1rem;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 10px;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+
+button:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+}
+
+/* Стили для блока комментариев */
+.comment {
+	background-color: #f9f9f9;
+	border-radius: 8px;
+	padding: 15px;
+	margin-bottom: 15px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.comment p {
+	font-size: 1rem;
+	color: #333;
+	margin-bottom: 10px;
+}
+
+.comment strong {
+	color: #007bff;
+}
+
+.replies {
+	margin-left: 20px;
+	margin-top: 15px;
+}
+
+.replies .reply {
+	background-color: #f1f1f1;
+	padding: 12px;
+	margin-bottom: 10px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.replies .reply strong {
+	color: #007bff;
+}
+
+.comment-form {
+	margin-top: 30px;
+	padding-top: 20px;
+	border-top: 2px dashed #eee;
+}
+
+textarea {
+	width: 100%;
+	height: 100px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	font-size: 1rem;
+	resize: none;
+	outline: none;
+	box-sizing: border-box;
+}
+
+textarea:focus {
+	border-color: #007bff;
+}
+
+.comment-form button {
+	width: 100%;
+	padding: 12px;
+	font-size: 1.1rem;
+	background-color: #28a745;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.comment-form button:hover {
+	background-color: #218838;
+}
+
+/* Стили для ссылок */
+a {
+	color: #007bff;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
 }
